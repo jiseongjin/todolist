@@ -2,8 +2,9 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [title, setTitle] = useState("리액트");
-  const [detail, setDetail] = useState("리액트 기초를 공부");
+  // 제목 내용 useState
+  const [title, setTitle] = useState("");
+  const [detail, setDetail] = useState("");
 
   const onChangeTitle = (event)=>{
     const inputValue = event.target.value;
@@ -15,7 +16,7 @@ function App() {
     const inputValue = event.target.value;
     setDetail(inputValue);
   }
-
+const cards = [{id:1,title: title, detail:detail}]
   return (
     <div className="totd-list">
       <div className="title-name">My Todo List</div>
@@ -30,14 +31,20 @@ function App() {
       </div>
       <div>
         <div className="card-list-name">Working..</div>
-        <div className="cards">
-          <div className="card-title">{title}</div>
-          <div className="card-detail">{detail}</div>
+        {
+          cards.map((item)=>{
+            return (
+            <div className="cards">
+          <div className="card-title">{item.title}</div>
+          <div className="card-detail">{item.detail}</div>
           <div>
             <button className="delete-btn">삭제하기</button>
             <button className="complete-delete-btn">완료</button>
           </div>
         </div>
+            )
+          })
+        }
         <div>
           <div className="card-list-name">Done..!</div>
         </div>
