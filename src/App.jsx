@@ -16,7 +16,14 @@ function App() {
     const inputValue = event.target.value;
     setDetail(inputValue);
   }
-const cards = [{id:1,title: title, detail:detail}]
+  // 카드리스트
+const [cards, setCards] = useState([]);
+
+// 추가하기 버튼
+const addCard = ()=>{
+  const newCard = {id:cards.length+1,title,detail};
+  setCards([...cards,newCard]);
+}
   return (
     <div className="totd-list">
       <div className="title-name">My Todo List</div>
@@ -27,14 +34,15 @@ const cards = [{id:1,title: title, detail:detail}]
         <div className="card-name">
           내용 <input className="input"type="text" onChange={onChangeDetail} value={detail}/>
         </div>
-        <div><button className="plus-btn">추가하기</button></div>
+        <div><button className="plus-btn" onClick={addCard}>추가하기</button></div>
       </div>
       <div>
         <div className="card-list-name">Working..</div>
+        {/* 카드리스트 맴으로 가져오기 */}
         {
           cards.map((item)=>{
             return (
-            <div className="cards">
+            <div key={item.id} className="cards">
           <div className="card-title">{item.title}</div>
           <div className="card-detail">{item.detail}</div>
           <div>
