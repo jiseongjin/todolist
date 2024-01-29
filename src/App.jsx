@@ -7,6 +7,20 @@ function App() {
   // 제목 내용 useState
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
+  const [date, setDate] = useState("");
+
+  //날짜 오름차순 내림차순..
+  // const [sortOrder, setSortOrder] = useState("asc");
+  const orderButton = (event) => {
+    if (event.target.value === "asc") {
+      return setCards(
+        [...cards].sort((a, b) => new Date(a.date) - new Date(b.date))
+      );
+    }
+    return setCards(
+      [...cards].sort((a, b) => new Date(b.date) - new Date(a.date))
+    );
+  };
 
   const onChangeTitle = (event) => {
     const inputValue = event.target.value;
@@ -17,15 +31,45 @@ function App() {
     const inputValue = event.target.value;
     setDetail(inputValue);
   };
+
+  const onChanggeDate = (event) => {
+    const inputValue = event.target.value;
+    // const options = {
+    //   weekday: "long",
+    //   year: "numeric",
+    //   month: "long",
+    //   day: "numeric",
+    // };
+    // const date = new Date(inputValue).toLocaleString("ko-KR", options);
+    // console.log(date);
+    setDate(inputValue);
+  };
   // 카드리스트
   const [cards, setCards] = useState([]);
 
   // 추가하기 버튼
   const addCardBtn = () => {
-    const newCard = { id: cards.length + 1, title, detail, isdone: false };
-    setCards([...cards, newCard]);
-    setTitle("");
-    setDetail("");
+    const newCard = {
+      id: crypto.randomUUID(),
+      title,
+      detail,
+      date,
+      isdone: false,
+    };
+    if (
+      newCard.title.length <= 0 ||
+      newCard.detail.length <= 0 ||
+      newCard.date.length <= 0
+    ) {
+      alert("제목,내용,날짜를 입력해 주세요!");
+    } else {
+      setCards(
+        [...cards, newCard].sort((a, b) => new Date(a.date) - new Date(b.date))
+      );
+      setTitle("");
+      setDetail("");
+      setDate("");
+    }
   };
 
   // 삭제 버튼
@@ -46,7 +90,7 @@ function App() {
     <div className="totd-list">
       <div className="title-name">My Todo List</div>
       <div className="plus-card">
-        <div className="card-name">
+        <div>
           제목
           <input
             className="input"
@@ -55,7 +99,7 @@ function App() {
             value={title}
           />
         </div>
-        <div className="card-name">
+        <div>
           내용
           <input
             className="input"
@@ -65,8 +109,24 @@ function App() {
           />
         </div>
         <div>
+          기한
+          <input
+            className="input"
+            type="date"
+            onChange={onChanggeDate}
+            value={date}
+          />
+        </div>
+        <div>
           <AddBtn addCardBtn={addCardBtn} />
         </div>
+      </div>
+      <div className="sort-button">
+        {/* 오름 내림 버튼 */}
+        <select onChange={orderButton}>
+          <option value={"asc"}>오름차순</option>
+          <option value={"desc"}>내림차순</option>
+        </select>
       </div>
       <div>
         <div className="card-list-name">Working..</div>

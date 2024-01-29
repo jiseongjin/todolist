@@ -1,16 +1,17 @@
-.totd-list{
-  width: 1200px;
+.totd-list {
+  max-width: 1200px;
+  min-width: 800px;
   margin: 0 auto 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.title-name{
+.title-name {
   width: 1200px;
-  margin-bottom: 20px;
+  margin: 20px 0 10px 0;
 }
-.plus-card{
+.plus-card {
   width: 1200px;
   height: 100px;
   background-color: rgb(172, 172, 172);
@@ -18,39 +19,39 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+  justify-content: center;
   font-weight: bold;
+  gap: 30px;
 }
-.card-name{
-  margin-left: 30px;
-}
-.input{
+
+.input {
   height: 20px;
   margin-left: 5px;
   border: transparent;
   border-radius: 5px;
 }
-.plus-btn{
+.plus-btn {
   width: 100px;
   height: 40px;
-  margin-left: 650px;
   background-color: rgb(98, 219, 98);
   border: transparent;
   border-radius: 10px;
   font-weight: bold;
 }
-.card-list-name{
-  width: 1200px;
+.card-list-name {
+  max-width: 1200px;
   margin: 20px 0 20px 0;
   font-size: 20px;
   font-weight: bold;
 }
-.card-list{
+.card-list {
   width: 1200px;
   display: flex;
   flex-direction: row;
   gap: 20px;
+  flex-wrap: wrap;
 }
-.cards{
+.cards {
   width: 250px;
   height: 150px;
   padding: 20px;
@@ -60,28 +61,43 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  gap: 20px;
 }
-.card-title{
+.card-title {
   width: 250px;
   font-size: 20px;
   font-weight: bold;
 }
-.card-detail{
+.card-detail {
   width: 250px;
-  margin: 20px 0 20px 0;
 }
-.delete-btn{
+
+.card-date {
+  width: 250px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+.buttons {
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.delete-btn {
   width: 100px;
   height: 30px;
-  margin-right: 10px;
   background-color: transparent;
   border: 1px solid red;
   border-radius: 5px;
 }
-.complete-delete-btn{
+.complete-delete-btn {
   width: 100px;
   height: 30px;
   background-color: transparent;
   border: 1px solid rgb(63, 211, 70);
   border-radius: 5px;
+}
+
+.sort-button {
+  margin-right: 90%;
 }
