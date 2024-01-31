@@ -2,6 +2,15 @@ import { useState } from "react";
 import "./App.css";
 import AddBtn from "./components/AddBtn";
 import Cards from "./components/Cards";
+import {
+  CardList,
+  CardListName,
+  PlusCard,
+  SortButton,
+  TitleName,
+  TodoList,
+} from "./components/Styled";
+import GlobalStyle from "./components/GlobalStyle";
 
 function App() {
   // 제목 내용 useState
@@ -87,50 +96,36 @@ function App() {
   };
 
   return (
-    <div className="totd-list">
-      <div className="title-name">My Todo List</div>
-      <div className="plus-card">
+    <TodoList>
+      <GlobalStyle />
+      <TitleName>My Todo List</TitleName>
+      <PlusCard>
         <div>
           제목
-          <input
-            className="input"
-            type="text"
-            onChange={onChangeTitle}
-            value={title}
-          />
+          <input type="text" onChange={onChangeTitle} value={title} />
         </div>
         <div>
           내용
-          <input
-            className="input"
-            type="text"
-            onChange={onChangeDetail}
-            value={detail}
-          />
+          <input type="text" onChange={onChangeDetail} value={detail} />
         </div>
         <div>
           기한
-          <input
-            className="input"
-            type="date"
-            onChange={onChanggeDate}
-            value={date}
-          />
+          <input type="date" onChange={onChanggeDate} value={date} />
         </div>
         <div>
           <AddBtn addCardBtn={addCardBtn} />
         </div>
-      </div>
-      <div className="sort-button">
+      </PlusCard>
+      <SortButton>
         {/* 오름 내림 버튼 */}
         <select onChange={orderButton}>
           <option value={"asc"}>오름차순</option>
           <option value={"desc"}>내림차순</option>
         </select>
-      </div>
+      </SortButton>
       <div>
-        <div className="card-list-name">Working..</div>
-        <div className="card-list">
+        <CardListName>Working..</CardListName>
+        <CardList>
           {/* 카드리스트 맴으로 가져오기 */}
           {cards.map((item) => {
             return item.isdone ? null : (
@@ -142,10 +137,10 @@ function App() {
               />
             );
           })}
-        </div>
+        </CardList>
         <div>
-          <div className="card-list-name">Done..!</div>
-          <div className="card-list">
+          <CardListName>Done..!</CardListName>
+          <CardList>
             {/* 완료카드 가져오기 */}
             {cards.map((item) => {
               return item.isdone ? (
@@ -157,10 +152,10 @@ function App() {
                 />
               ) : null;
             })}
-          </div>
+          </CardList>
         </div>
       </div>
-    </div>
+    </TodoList>
   );
 }
 

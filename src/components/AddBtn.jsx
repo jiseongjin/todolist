@@ -1,6 +1,7 @@
-const AddBtn = ({addCardBtn}) => 
-  <button className="plus-btn" onClick={addCardBtn}>
-    추가하기
-  </button>
+import { PlusButton } from "./Styled";
 
-  export default AddBtn;
+const AddBtn = ({ addCardBtn }) => (
+  <PlusButton onClick={addCardBtn}>추가하기</PlusButton>
+);
+
+export default AddBtn;

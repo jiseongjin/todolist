@@ -1,3 +1,13 @@
+import {
+  Buttons,
+  CardDate,
+  CardDetail,
+  CardTitle,
+  CardsStyle,
+  CompleteButton,
+  DeleteButton,
+} from "./Styled";
+
 const Cards = ({ item, deleteCardBtn, completeBtn }) => {
   const options = {
     weekday: "long",
@@ -6,24 +16,21 @@ const Cards = ({ item, deleteCardBtn, completeBtn }) => {
     day: "numeric",
   };
   return (
-    <div key={item.id} className="cards">
-      <div className="card-title">{item.title}</div>
-      <div className="card-detail">{item.detail}</div>
-      <div className="card-date">
+    <CardsStyle key={item.id}>
+      <CardTitle>{item.title}</CardTitle>
+      <CardDetail>{item.detail}</CardDetail>
+      <CardDate isdone={item.isdone}>
         {new Date(item.date).toLocaleString("ko-KR", options)}까지!
-      </div>
-      <div className="buttons">
-        <button className="delete-btn" onClick={() => deleteCardBtn(item.id)}>
+      </CardDate>
+      <Buttons>
+        <DeleteButton onClick={() => deleteCardBtn(item.id)}>
           삭제하기
-        </button>
-        <button
-          className="complete-delete-btn"
-          onClick={() => completeBtn(item.id)}
-        >
+        </DeleteButton>
+        <CompleteButton onClick={() => completeBtn(item.id)}>
           {item.isdone ? "취소" : "완료"}
-        </button>
-      </div>
-    </div>
+        </CompleteButton>
+      </Buttons>
+    </CardsStyle>
   );
 };
 
