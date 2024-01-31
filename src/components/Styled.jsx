@@ -65,6 +65,7 @@ export const CardDetail = styled.p`
   width: 250px;
 `;
 
+// 나중에 다시 확인
 // .attrs((props) => ({
 //   // isdone 속성을 필터링하여 DOM으로 전달되지 않도록 설정
 //   isdone: undefined,
