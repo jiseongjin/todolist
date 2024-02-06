@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Buttons,
   CardDate,
@@ -17,11 +18,13 @@ const Cards = ({ item, deleteCardBtn, completeBtn }) => {
   };
   return (
     <CardsStyle key={item.id}>
-      <CardTitle>{item.title}</CardTitle>
-      <CardDetail>{item.detail}</CardDetail>
-      <CardDate isdone={item.isdone}>
-        {new Date(item.date).toLocaleString("ko-KR", options)}까지!
-      </CardDate>
+      <Link to={`/detail/${item.id}`}>
+        <CardTitle>{item.title}</CardTitle>
+        <CardDetail>{item.detail}</CardDetail>
+        <CardDate isdone={item.isdone}>
+          {new Date(item.date).toLocaleString("ko-KR", options)}까지!
+        </CardDate>
+      </Link>
       <Buttons>
         <DeleteButton onClick={() => deleteCardBtn(item.id)}>
           삭제하기

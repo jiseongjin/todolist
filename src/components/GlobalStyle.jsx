@@ -7,6 +7,11 @@ const GlobalStyle = createGlobalStyle`
     border: transparent;
     border-radius: 5px;
     }
+
+    a {
+        text-decoration-line: none;
+        color:black;
+    }
 `;
 
 export default GlobalStyle;
