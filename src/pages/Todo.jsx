@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CardList,
   CardListName,
@@ -9,6 +9,7 @@ import {
 } from "../components/Styled";
 import AddBtn from "../components/AddBtn";
 import Cards from "../components/Cards";
+import axios from "axios";
 
 function Todo({ cards, setCards }) {
   // 제목 내용 useState
@@ -16,8 +17,12 @@ function Todo({ cards, setCards }) {
   const [detail, setDetail] = useState("");
   const [date, setDate] = useState("");
 
+  // 조회 함수
+  const fatchTodos = async () => {
+    const { data } = await axios.get("http://localhost:4002/todos");
+    setCards(data);
+  };
   //날짜 오름차순 내림차순..
-  // const [sortOrder, setSortOrder] = useState("asc");
   const orderButton = (event) => {
     if (event.target.value === "asc") {
       return setCards(
@@ -41,21 +46,11 @@ function Todo({ cards, setCards }) {
 
   const onChanggeDate = (event) => {
     const inputValue = event.target.value;
-    // const options = {
-    //   weekday: "long",
-    //   year: "numeric",
-    //   month: "long",
-    //   day: "numeric",
-    // };
-    // const date = new Date(inputValue).toLocaleString("ko-KR", options);
-    // console.log(date);
     setDate(inputValue);
   };
-  // 카드리스트
-  // const [cards, setCards] = useState([]);
 
   // 추가하기 버튼
-  const addCardBtn = () => {
+  const addCardBtn = async () => {
     const newCard = {
       id: crypto.randomUUID(),
       title,
@@ -70,9 +65,11 @@ function Todo({ cards, setCards }) {
     ) {
       alert("제목,내용,날짜를 입력해 주세요!");
     } else {
-      setCards(
-        [...cards, newCard].sort((a, b) => new Date(a.date) - new Date(b.date))
-      );
+      axios.post("http://localhost:4002/todos", newCard);
+      setCards([...cards, newCard]);
+      // setCards(
+      //   [...cards, newCard].sort((a, b) => new Date(a.date) - new Date(b.date))
+      // );
       setTitle("");
       setDetail("");
       setDate("");
@@ -80,18 +77,28 @@ function Todo({ cards, setCards }) {
   };
 
   // 삭제 버튼
-  const deleteCardBtn = (id) => {
+  const deleteCardBtn = async (id) => {
+    axios.delete(`http://localhost:4002/todos/${id}`);
     const newCards = cards.filter((card) => card.id !== id);
     setCards(newCards);
   };
 
   // 완료 버튼
-  const completeBtn = (id) => {
+  const completeBtn = async (id) => {
+    const findCard = cards.find((item) => item.id === id);
+    const updatedIsDone = !findCard.isdone;
+    axios.patch(`http://localhost:4002/todos/${id}`, {
+      isdone: updatedIsDone,
+    });
     const trueCard = cards.map((obj) =>
       obj.id === id ? { ...obj, isdone: !obj.isdone } : obj
     );
     setCards(trueCard);
   };
+
+  useEffect(() => {
+    fatchTodos();
+  }, []);
 
   return (
     <TodoList>
